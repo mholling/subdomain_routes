@@ -2,15 +2,15 @@ module SubdomainRoutes
   module Routing
     module RouteSet
       include SplitHost
-      
+
       def self.included(base)
         [ :extract_request_environment, :add_route, :raise_named_route_error ].each { |method| base.alias_method_chain method, :subdomains }
       end
-      
+
       def extract_request_environment_with_subdomains(request)
         extract_request_environment_without_subdomains(request).merge(:subdomain => subdomain_for_host(request.host))
       end
-      
+
       def add_route_with_subdomains(*args)
         options = args.extract_options!
         if subdomains = options.delete(:subdomains)
@@ -35,19 +35,19 @@ module SubdomainRoutes
           end
         end
       end
-      
+
       def reserved_subdomains
         routes.map(&:reserved_subdomains).flatten.uniq
       end
     end
-  
+
     module Route
       def self.included(base)
         [ :recognition_conditions, :generation_extraction, :segment_keys, :significant_keys, :recognition_extraction ].each { |method| base.alias_method_chain method, :subdomains }
       end
-      
+
       def recognition_conditions_with_subdomains
-        returning recognition_conditions_without_subdomains do |result|
+        recognition_conditions_without_subdomains.tap do |result|
           case conditions[:subdomains]
           when Array
             result << "conditions[:subdomains].include?(env[:subdomain])"
@@ -56,7 +56,7 @@ module SubdomainRoutes
           end
         end
       end
-      
+
       def generation_extraction_with_subdomains
         results = [ generation_extraction_without_subdomains ]
         if conditions[:subdomains].is_a?(Symbol)
@@ -64,28 +64,28 @@ module SubdomainRoutes
         end
         results.compact * "\n"
       end
-                  
+
       def segment_keys_with_subdomains
-        returning segment_keys_without_subdomains do |result|
+        segment_keys_without_subdomains.tap do |result|
           result.unshift(conditions[:subdomains]) if conditions[:subdomains].is_a? Symbol
         end
       end
-      
+
       def significant_keys_with_subdomains
-        returning significant_keys_without_subdomains do |result|
+        significant_keys_without_subdomains.tap do |result|
           if conditions[:subdomains].is_a? Symbol
             result << conditions[:subdomains]
             result.uniq!
           end
         end
       end
-      
+
       def recognition_extraction_with_subdomains
-        returning recognition_extraction_without_subdomains do |result|
+        recognition_extraction_without_subdomains.tap do |result|
           result.unshift "\nparams[#{conditions[:subdomains].inspect}] = subdomain\n" if conditions[:subdomains].is_a? Symbol
         end
       end
-      
+
       def reserved_subdomains
         conditions[:subdomains].is_a?(Array) ? conditions[:subdomains] : []
       end
