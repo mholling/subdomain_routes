@@ -8,22 +8,21 @@ I've recently completed work on a subdomain library which fully incorporates sub
 
 h2. Installation
 
-The gem is called <code>SubdomainRoutes</code>, and is easy to install from Gemcutter (you only need to add Gemcutter as a source once):
+The gem is called <code>SubdomainRoutes</code>, and is easy to install:
 
 <pre>
-gem sources -a http://gemcutter.org
-sudo gem install subdomain_routes
+gem install subdomain_routes
 </pre>
 
 In your Rails app, make sure to specify the gem dependency in environment.rb:
 
 <pre>
-config.gem "subdomain_routes", :source => "http://gemcutter.org"
+config.gem "subdomain_routes"
 </pre>
 
-[ *UPDATE:* You can also install the gem as a plugin: <code>script/plugin install git://github.com/mholling/subdomain_routes.git</code> ]
+You can also install the gem as a plugin: <code>script/plugin install git://github.com/mholling/subdomain_routes.git</code>.
 
-(Note that the SubdomainRoutes gem requires Rails 2.3.9 or later to run since it changes <code>ActionController::Resources::INHERITABLE_OPTIONS</code>. If you're on an older version of Rails, you need to get with the program. ;)
+Note that the SubdomainRoutes gem requires Rails 2.3.9 or later to run since it changes <code>ActionController::Resources::INHERITABLE_OPTIONS</code>. If you're on an older version of Rails, you need to get with the program. ;)
 
 Finally, you'll probably want to configure your session to work across all your subdomains. You can do this in your environment files:
 
