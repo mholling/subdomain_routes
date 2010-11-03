@@ -23,7 +23,7 @@ config.gem "subdomain_routes", :source => "http://gemcutter.org"
 
 [ *UPDATE:* You can also install the gem as a plugin: <code>script/plugin install git://github.com/mholling/subdomain_routes.git</code> ]
 
-(Note that the SubdomainRoutes gem requires Rails 2.2 or later to run since it changes <code>ActionController::Resources::INHERITABLE_OPTIONS</code>. If you're on an older version of Rails, you need to get with the program. ;)
+(Note that the SubdomainRoutes gem requires Rails 2.3.9 or later to run since it changes <code>ActionController::Resources::INHERITABLE_OPTIONS</code>. If you're on an older version of Rails, you need to get with the program. ;)
 
 Finally, you'll probably want to configure your session to work across all your subdomains. You can do this in your environment files:
 
