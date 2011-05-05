@@ -9,8 +9,8 @@ module SubdomainRoutes
               raise ArgumentError, "Invalid model name" if model.blank?
               models = model.to_s.downcase.pluralize
               model = models.singularize
-              model_id = model.foreign_key.to_sym
-              subdomain_options = { :subdomains => model_id }
+              model_col = options.delete(:column) || model.foreign_key.to_sym
+              subdomain_options = { :subdomains => model_col }
               name = options.has_key?(:name) ? options.delete(:name) : model
             else
               raise ArgumentError, "Please specify at least one subdomain!"
