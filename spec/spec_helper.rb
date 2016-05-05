@@ -1,7 +1,13 @@
 require 'spec'
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+
 require 'rubygems'
+gem 'activesupport', '>= 2.3.9'
+gem 'actionpack', '>= 2.3.9'
+gem 'activerecord', '>= 2.3.9'
+gem 'actionmailer', '>= 2.3.9'
+
 require 'active_support'
 require 'action_controller'
 require 'active_record' # only required for testing optional features, not required by the gem

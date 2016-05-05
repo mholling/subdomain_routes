@@ -1,6 +1,6 @@
 module SubdomainRoutes
   def self.valid_subdomain?(subdomain)
-    subdomain.to_s =~ /^([a-z]|[a-z][a-z0-9]|[a-z]([a-z0-9]|\-[a-z0-9])*)$/
+    subdomain.to_s =~ /^([a-z0-9]|[a-z0-9][-a-z0-9]{0,61}[a-z0-9])*$/
   end
 
   # # Alternatively, we use URI::parse instead. This gives more lenient subdomains however:

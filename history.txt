@@ -1,5 +1,10 @@
 SubdomainRoutes Revision History
 
+Master
+* Require Rails 2.3.9 or older [Yaroslav Markin]
+* Deprecate Kernel#returning, use Object#tap (Deprecated as of Rails 2.3.9) [Yaroslav Markin]
+* Subdomains validator now accepts subdomains that start with a number [Yaroslav Markin]
+
 Version 0.3.1
 * Fixed bug whereby port number was not preserved when a subdomain route changed
   the subdomain in the host (Matsumara Akihiro, Matthew Hollingworth).
