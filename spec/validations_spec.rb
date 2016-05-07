@@ -20,7 +20,7 @@ describe "ActiveRecord::Base" do
     reserved.each do |subdomain|
       User.new(:subdomain => subdomain).should_not be_valid
     end
-    [ "mholling", "edmondst" ].each do |subdomain|
+    [ "mholling", "edmondst", "2girls1cup" ].each do |subdomain|
       User.new(:subdomain => subdomain).should be_valid
     end
   end
