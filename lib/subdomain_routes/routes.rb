@@ -47,7 +47,7 @@ module SubdomainRoutes
       end
       
       def recognition_conditions_with_subdomains
-        returning recognition_conditions_without_subdomains do |result|
+        recognition_conditions_without_subdomains.tap do |result|
           case conditions[:subdomains]
           when Array
             result << "conditions[:subdomains].include?(env[:subdomain])"
@@ -66,13 +66,13 @@ module SubdomainRoutes
       end
                   
       def segment_keys_with_subdomains
-        returning segment_keys_without_subdomains do |result|
+        segment_keys_without_subdomains.tap do |result|
           result.unshift(conditions[:subdomains]) if conditions[:subdomains].is_a? Symbol
         end
       end
       
       def significant_keys_with_subdomains
-        returning significant_keys_without_subdomains do |result|
+        significant_keys_without_subdomains.tap do |result|
           if conditions[:subdomains].is_a? Symbol
             result << conditions[:subdomains]
             result.uniq!
@@ -81,7 +81,7 @@ module SubdomainRoutes
       end
       
       def recognition_extraction_with_subdomains
-        returning recognition_extraction_without_subdomains do |result|
+        recognition_extraction_without_subdomains.tap do |result|
           result.unshift "\nparams[#{conditions[:subdomains].inspect}] = subdomain\n" if conditions[:subdomains].is_a? Symbol
         end
       end
